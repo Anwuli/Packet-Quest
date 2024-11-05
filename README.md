@@ -6,5 +6,6 @@ Learn about your favorite network protocols, and practice how to use them all in
 This is an open source resource so feel free to download and use.
 
 
-Primary Author: Anwuli Ajabor
+Primary Author: Anwuli Ajabor.
+
 You are not authorized to sell or distribute for purpose of sale of this repository and files contained in them.
