@@ -15,11 +15,11 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('The Mac Murder Mystery')
 
 # Load background images
-background = pygame.image.load('startmenuimage3.png')
+background = pygame.image.load('..\game images\startmenuimage3.png')
 background = pygame.transform.scale(background, (screen_width, screen_height))
-bonus_background = pygame.image.load('creditsimage.png')
+bonus_background = pygame.image.load('..\game images\creditsimage.png')
 bonus_background = pygame.transform.scale(bonus_background, (screen_width, screen_height))
-glossary_background = pygame.image.load('creditsimage.png')
+glossary_background = pygame.image.load('..\game images\creditsimage.png')
 glossary_background = pygame.transform.scale(glossary_background, (screen_width, screen_height))
 
 # Define colors
@@ -32,9 +32,9 @@ clock = pygame.time.Clock()
 # Set up fonts
 pygame.font.init()
 haunted_font = pygame.font.Font(None, 50)  # Use for title
-vintage_rotter_font = pygame.font.Font(r'Fonts\vintage_rotter.otf', 40)  # Custom font
-arial_font = pygame.font.Font(r'Fonts\arial_narrow.ttf', 25)
-roboto_font = pygame.font.Font(r'Fonts\Roboto-Black.ttf', 50)
+vintage_rotter_font = pygame.font.Font(r'..\Fonts\vintage_rotter.otf', 40)  # Custom font
+arial_font = pygame.font.Font(r'..\Fonts\arial_narrow.ttf', 25)
+roboto_font = pygame.font.Font(r'..\Fonts\Roboto-Black.ttf', 50)
 
 from scapy.all import sendp
 
@@ -132,7 +132,7 @@ def draw_button(text, rect, font):
 
 # Mansion video playback using MoviePy
 def play_mansion_video():
-    video = moviepy.VideoFileClip("gamemedia/mansionvideo.mp4")
+    video = moviepy.VideoFileClip("../gamemedia/mansionvideo.mp4")
     video.preview()  # Open a preview window to play the video
     video.close()
 import sys
