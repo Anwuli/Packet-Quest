@@ -1,10 +1,10 @@
 import pygame
 import moviepy
 import sys
+import re
 from resolve_ip import get_local_mac
 from scapy.all import IP, ICMP, ARP, conf, send, Ether, get_if_addr, Raw
-from scapy.all import ARP, Ether, srp, conf, get_if_addr, sendp
-
+from scapy.all import srp, conf, sendp, getmacbyip
 
 # Initialize Pygame
 pygame.init()
@@ -31,12 +31,12 @@ clock = pygame.time.Clock()
 
 # Set up fonts
 pygame.font.init()
-haunted_font = pygame.font.Font(None, 50)  # Use for title
+haunted_font = pygame.font.Font(None, 50)
 vintage_rotter_font = pygame.font.Font(r'..\Fonts\vintage_rotter.otf', 40)  # Custom font
 arial_font = pygame.font.Font(r'..\Fonts\arial_narrow.ttf', 25)
 roboto_font = pygame.font.Font(r'..\Fonts\Roboto-Black.ttf', 50)
 
-from scapy.all import sendp
+
 
 def generate_arp_packet(dest_ip, num_packets, payload=None): 
     # Generate and send ARP packets using Scapy.
@@ -59,11 +59,6 @@ def generate_arp_packet(dest_ip, num_packets, payload=None):
     sendp(packets, iface=active_interface, verbose=True)
     return packets
 
-from scapy.all import Ether, IP, ICMP, Raw, send, sendp
-
-# Call the function
-
-from scapy.all import Ether, IP, Raw, sendp, get_if_addr, getmacbyip, conf
 
 def generate_ip_packet(dest_ip, num_packets, payload=None):
     # Generate and send IP packets using Scapy.
@@ -90,7 +85,7 @@ def generate_ip_packet(dest_ip, num_packets, payload=None):
     return packets
 
 
-from scapy.all import IP, ICMP, Raw, send
+
 
 def generate_icmp_packet(dest_ip, num_packets, payload=None):
     # Generate ICMP packets using Scapy.
@@ -112,6 +107,7 @@ def generate_icmp_packet(dest_ip, num_packets, payload=None):
         send(icmp_packet, verbose=0)  # Sending the ICMP packet
 
     return packets
+
 # Function to render text
 def draw_title(text, font, color, x, y):
     title_surface = font.render(text, True, color)
@@ -132,14 +128,17 @@ def draw_button(text, rect, font):
 
 # Mansion video playback using MoviePy
 def play_mansion_video():
-    video = moviepy.VideoFileClip("../gamemedia/mansionvideo.mp4")
-    video.preview()  # Open a preview window to play the video
-    video.close()
-import sys
-import re
+    try:
+        video = moviepy.VideoFileClip("../gamemedia/mansionvideo.mp4")
+        video.preview()  # Open a preview window to play the video
+    except OSError as e:
+        print(f"Video preview was closed: {e}")
+    finally:
+        video.close()  # Ensure the video file is properly closed
+
 
 def is_valid_ip(ip):
-    """Validate the entered IP address format."""
+    # Validate the entered IP address format.
     pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
     if re.match(pattern, ip):
         parts = ip.split('.')
@@ -147,7 +146,7 @@ def is_valid_ip(ip):
     return False
 
 def is_correct_ip(ip):
-    """Check if the IP address matches the required value."""
+    # Check if the IP address matches the required value
     return ip == "10.23.90.2"
 
 def ip_search_window():
@@ -710,7 +709,7 @@ def show_bonus():
     back_button_rect = pygame.Rect(15, 530, 100, 35)
     glossary_button_rect = pygame.Rect(640, 530, 150, 35)
 
-    small_font = pygame.font.Font(r'Fonts\vintage_rotter.otf', 30)  # Smaller font for bonus text
+    small_font = pygame.font.Font(r'..\Fonts\vintage_rotter.otf', 30)  # Smaller font for bonus text
 
     while bonus_running:
         for event in pygame.event.get():
@@ -761,7 +760,7 @@ def show_bonus():
 def show_glossary():
     glossary_running = True
     back_button_rect = pygame.Rect(640, 530, 150, 35)
-    small_font = pygame.font.Font(r'Fonts\vintage_rotter.otf', 25)  # Smaller font for glossary content
+    small_font = pygame.font.Font(r'..\Fonts\vintage_rotter.otf', 25)  # Smaller font for glossary content
 
     glossary_text = [
         "ARP Terminology Simplified:",
@@ -820,7 +819,7 @@ def show_glossary():
 def show_credits():
     credits_running = True
     back_button_rect = pygame.Rect(15, 530, 100, 35)
-    small_font = pygame.font.Font(r'Fonts\vintage_rotter.otf', 30)
+    small_font = pygame.font.Font(r'..\Fonts\vintage_rotter.otf', 30)
 
     credits_text = [
         " ",
